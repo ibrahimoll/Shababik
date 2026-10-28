@@ -1,0 +1,12 @@
+node_modules
+.next
+.env*.local
+.env
+.env.cloud
+*.tsbuildinfo
+next-env.d.ts
+supabase/.temp
+supabase/.branches
+
+# Local Netlify folder
+.netlify
