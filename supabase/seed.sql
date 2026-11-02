@@ -19,7 +19,7 @@ insert into public.businesses (
   'https://www.instagram.com/shababik_art_crafts/?hl=ar',
   'https://www.facebook.com/people/%D8%B4%D8%A8%D8%A7%D8%A8%D9%8A%D9%83-Arts-Crafts/100063450356768/',
   'Toul, Nabatieh',
-  'Beautiful handmade pieces for every occasion.',
+  'Supplies & Materials, for All Kinds of Crafts',
   'Discover handmade gifts, accessories and personalized creations made with care in Lebanon.',
   'Shababik Arts & Crafts creates handmade products, gifts, accessories and personalized pieces with attention to detail and creativity.',
   'active',
@@ -27,7 +27,7 @@ insert into public.businesses (
   100,
   null, -- monthly fee: set it in Super Admin → Settings
   (current_date + interval '1 month')::date,
-  'قطع يدوية جميلة لكل مناسبة.',
+  'جميع مستلزمات الأشغال اليدوية',
   'اكتشفوا هدايا وإكسسوارات وقطعاً مخصّصة مصنوعة يدوياً بحب في لبنان.',
   'شبابيك للفنون والأشغال اليدوية تصنع منتجات وهدايا وإكسسوارات وقطعاً مخصّصة يدوياً، بعناية بالتفاصيل وإبداع.',
   'تول، النبطية'
