@@ -83,31 +83,16 @@ export function Storefront({
             </div>
           </div>
 
-          <div className="hero-art">
+                    <div className="hero-art">
             <div className="window window-main">
               <Image
                 src="/hero/hero-main.png"
-                alt="Handmade candle in a blue ceramic jar, pottery vase, aqua resin coaster and wooden tray"
+                alt="Shababik Nagham: a crafter at a blue-shuttered window with resin, yarn and craft supplies"
                 fill
                 priority
                 sizes="(max-width: 900px) 80vw, 440px"
                 className="cover-img"
               />
-            </div>
-            <div className="window window-side">
-              <Image
-                src="/hero/hero-side.png"
-                alt="Handmade gift wrapped in white paper with a navy ribbon"
-                fill
-                sizes="(max-width: 900px) 40vw, 200px"
-                className="cover-img"
-              />
-            </div>
-            <div className="hero-tag">
-              <b>{displayName}</b>
-              {!isAr && business.arabic_name && <span className="ar" lang="ar" dir="rtl">{business.arabic_name}</span>}
-              {isAr && <span className="ar" lang="en" dir="ltr">{short}</span>}
-              <span>{t.personalTouch}</span>
             </div>
           </div>
         </section>
