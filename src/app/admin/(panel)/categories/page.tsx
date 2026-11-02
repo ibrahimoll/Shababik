@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
+import { CategoryPhoto } from "@/components/panel/CategoryPhoto";
 import { ConfirmAction } from "@/components/ui/ConfirmAction";
 import { Flash } from "@/components/ui/Flash";
 import { SubmitButton } from "@/components/ui/SubmitButton";
@@ -53,6 +54,12 @@ export default async function CategoriesPage({ searchParams }: { searchParams: P
             const n = counts.get(c.id) ?? 0;
             return (
               <li key={c.id} className="cat-row">
+                <CategoryPhoto
+                  categoryId={c.id}
+                  categoryName={c.name}
+                  businessId={business.id}
+                  imageUrl={c.image_url}
+                />
                 <form action={renameCategory} className="cat-rename">
                   <input type="hidden" name="id" value={c.id} />
                   <label className="sr-only" htmlFor={`cat-${c.id}`}>Name in English</label>

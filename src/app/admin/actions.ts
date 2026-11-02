@@ -239,8 +239,10 @@ export async function deleteCategory(fd: FormData) {
   if (count) redirect("/admin/categories?msg=category-in-use");
 
   const { data: deleted, error } = await supabase
-    .from("categories").delete().eq("id", id).eq("business_id", business.id).select("name");
+    .from("categories").delete().eq("id", id).eq("business_id", business.id).select("name, image_url");
   if (error) redirect("/admin/categories?msg=error");
+  const photoPath = storagePath(deleted?.[0]?.image_url ?? null);
+  if (photoPath) await supabase.storage.from("product-images").remove([photoPath]);
   await audit({ action: "category.deleted", businessId: business.id, actor: actorOf(ctx), target: deleted?.[0]?.name ?? null });
   refreshWebsite();
   redirect("/admin/categories?msg=category-deleted");
@@ -313,4 +315,33 @@ export async function saveHomeOrder(fd: FormData) {
   await audit({ action: "home.reordered", businessId: business.id, actor: actorOf(ctx) });
   refreshWebsite();
   redirect(`${back}&msg=order-saved`);
+}
+
+// ---- categories
+export async function setCategoryImage(id: string, imageUrl: string | null): Promise<FormState> {
+  const ctx = await requireAdmin();
+  const { supabase, business } = ctx;
+  if (!validImageUrl(imageUrl, business.id)) return { error: "Unable to upload image. Please try again." };
+
+  const { data: existing } = await supabase
+    .from("categories").select("id, name, image_url").eq("id", id).eq("business_id", business.id).maybeSingle();
+  if (!existing) return { error: "This category could not be found." };
+
+  const { error } = await supabase
+    .from("categories").update({ image_url: imageUrl }).eq("id", id).eq("business_id", business.id);
+  if (error) return { error: "Unable to save the photo. Please try again." };
+
+  // tidy up a replaced / removed photo
+  if (existing.image_url && existing.image_url !== imageUrl) {
+    const path = storagePath(existing.image_url);
+    if (path) await supabase.storage.from("product-images").remove([path]);
+  }
+  await audit({
+    action: imageUrl ? "category.photo_updated" : "category.photo_removed",
+    businessId: business.id,
+    actor: actorOf(ctx),
+    target: existing.name,
+  });
+  refreshWebsite();
+  return {};
 }

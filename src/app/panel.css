@@ -306,6 +306,29 @@
 .form-actions { border-top: 1px solid var(--line); padding-top: 16px; }
 
 /* ---------- Categories ---------- */
+/* category photo */
+.cat-photo { position: relative; flex: none; }
+.cat-photo-btn {
+  width: 52px; height: 52px; border-radius: 10px; overflow: hidden; padding: 0;
+  border: 2px dashed #9fdbe2; background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center; cursor: pointer; transition: border-color .15s;
+}
+.cat-photo-btn:hover:not(:disabled) { border-color: var(--accent); }
+.cat-photo-btn:disabled { cursor: wait; }
+.cat-photo-btn:has(img) { border: 1px solid var(--line); }
+.cat-photo-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cat-photo-remove {
+  position: absolute; top: -7px; right: -7px; width: 22px; height: 22px; padding: 0;
+  border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--danger);
+  font-size: 15px; line-height: 1; cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 2px 6px rgba(13, 35, 80, .12);
+}
+.cat-photo-remove:hover { background: var(--danger-soft); }
+.cat-photo-error {
+  position: absolute; top: calc(100% + 4px); left: 0; z-index: 2; white-space: nowrap; font-size: 12.5px;
+  background: var(--surface); padding: 2px 8px; border-radius: 6px; box-shadow: 0 4px 12px rgba(13, 35, 80, .12);
+}
+
 .inline-form { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
 .inline-form .grow { flex: 1 1 220px; }
 .cat-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
