@@ -33,7 +33,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
           </div>
           <label className="field">
             <span>Hero Title</span>
-            <input name="hero_title" maxLength={120} defaultValue={b.hero_title ?? ""} placeholder="Beautiful handmade pieces for every occasion." />
+            <input name="hero_title" maxLength={120} defaultValue={b.hero_title ?? ""} placeholder="Supplies & Materials, for All Kinds of Crafts" />
           </label>
           <label className="field">
             <span>Hero Description</span>
