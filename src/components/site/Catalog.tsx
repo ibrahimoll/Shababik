@@ -53,6 +53,8 @@ export function Catalog({
           ))}
         </nav>
 
+        {activeSlug && !active && <p className="catalog-note" role="status">{t.categoryMissing}</p>}
+
         {list.length ? (
           <div className="product-grid">
             {list.map((p, i) => (

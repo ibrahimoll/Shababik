@@ -118,7 +118,7 @@
 .card-flush { padding: 0; overflow: hidden; gap: 0; }
 .card-flush .card-head { padding: 16px 18px; border-bottom: 1px solid var(--line); }
 .card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.text-link { color: var(--accent) !important; font-weight: 600; text-decoration: none; font-size: 14px; }
+.text-link { color: var(--accent) !important; font-weight: 600; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; min-height: 40px; }
 .section-title { margin: 8px 0 10px !important; }
 
 /* ---------- Flash ---------- */
@@ -159,7 +159,7 @@
 .product-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .product-row {
   display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 12px;
+  border-radius: var(--radius); padding: 12px; min-width: 0;
 }
 .product-row .thumb { width: 64px; height: 64px; }
 .row-main { flex: 1; min-width: 0; display: grid; gap: 2px; }
@@ -180,6 +180,7 @@
 .cat-chip[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 .cat-chip[aria-current="page"] span { color: rgba(255, 255, 255, .8); }
 /* Arrange page */
+.arrange-card > *, .sort-rows, .sort-row { min-width: 0; } /* let rows shrink on 320px phones */
 .arrange-card h2 { font-size: 18px; margin: 0; }
 .arrange-card p { margin: 4px 0 0; }
 .sort-form { display: grid; gap: 12px; }
@@ -190,7 +191,7 @@
 }
 .sort-pos {
   flex: none; width: 40px; height: 40px; border-radius: 999px; border: 1px solid transparent; padding: 0;
-  background: var(--accent-soft); color: var(--accent); font: inherit; font-size: 13px; font-weight: 700;
+  background: var(--accent-soft); color: var(--accent); font: inherit; font-size: 16px; font-weight: 700; /* 16px+: iPhone won't zoom on tap */
   text-align: center; text-align-last: center; appearance: none; -webkit-appearance: none; cursor: pointer;
 }
 .sort-pos:hover, .sort-pos:focus { border-color: var(--accent); outline: none; }
@@ -221,7 +222,7 @@
 @media (max-width: 559px) {
   .sort-row { gap: 10px; padding: 8px; }
   .sort-row .thumb { width: 44px; height: 44px; }
-  .sort-pos { width: 36px; height: 36px; font-size: 12px; }
+  .sort-pos { width: 36px; height: 36px; }
   .sort-actions { gap: 4px; }
   .sort-save { flex-direction: column; align-items: stretch; text-align: center; }
   .sort-save-actions { justify-content: stretch; }
@@ -467,6 +468,7 @@
   background: var(--accent-soft); color: var(--accent);
 }
 .login-card .login-foot { text-decoration: none; }
+.login-card a.login-foot { display: block; padding-block: 10px; }
 .code-input { font-size: 26px !important; letter-spacing: .5em; text-align: center; font-variant-numeric: tabular-nums; }
 .enroll-card { width: min(460px, 100%); }
 .qr { display: grid; place-items: center; padding: 14px; background: #fff; border: 1px solid var(--line); border-radius: 16px; }

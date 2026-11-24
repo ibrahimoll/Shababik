@@ -87,7 +87,7 @@ export function Storefront({
             <div className="window window-main">
               <Image
                 src="/hero/hero-main.png"
-                alt="Shababik Nagham: a crafter at a blue-shuttered window with resin, yarn and craft supplies"
+                alt={t.heroAlt}
                 fill
                 priority
                 sizes="(max-width: 900px) 80vw, 440px"

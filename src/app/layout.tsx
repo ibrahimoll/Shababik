@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Cormorant_Garamond, DM_Sans, Amiri, Tajawal } from "next/font/google";
+import { getLocale } from "@/lib/locale";
 import "./globals.css";
 
 const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-serif", display: "swap" });
@@ -22,9 +23,10 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Reading the request headers makes every page render per request, so each one
   // gets the fresh CSP nonce from middleware (Next.js applies it to its scripts).
-  await headers();
+  const isPublic = (await headers()).get("x-public-site") === "1";
+  const lang = isPublic ? await getLocale() : "en";
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} ${arabic.variable} ${arabicSans.variable}`}>
+    <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} className={`${serif.variable} ${sans.variable} ${arabic.variable} ${arabicSans.variable}`}>
       <body>{children}</body>
     </html>
   );

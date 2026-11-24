@@ -57,6 +57,8 @@ interface Dict {
   all: string;
   filterAria: string;
   collectionEmpty: string;
+  categoryMissing: string;
+  heroAlt: string;
   askUs: string;
   siteUnavailable: string;
   siteNotFound: string;
@@ -145,6 +147,8 @@ const en: Dict = {
   all: "All",
   filterAria: "Filter by category",
   collectionEmpty: "New pieces for this collection are coming soon.",
+  categoryMissing: "We couldn’t find that collection, so here are all our products.",
+  heroAlt: "Shababik Nagham: a crafter at a blue-shuttered window with resin, yarn and craft supplies",
   askUs: "Ask us on WhatsApp",
   siteUnavailable: "This website is temporarily unavailable. Please check back soon.",
   siteNotFound: "We couldn't find the website you're looking for.",
@@ -273,6 +277,8 @@ const ar: Dict = {
   all: "الكل",
   filterAria: "تصفية حسب المجموعة",
   collectionEmpty: "قطع جديدة لهذه المجموعة قريباً.",
+  categoryMissing: "لم نجد هذه المجموعة، إليك كل منتجاتنا.",
+  heroAlt: "شبابيك نغم: حرفية عند نافذة بشبابيك زرقاء مع الريزن والصوف ومستلزمات الحِرف",
   askUs: "اسألونا على واتساب",
   siteUnavailable: "هذا الموقع غير متاح مؤقتاً. يرجى المحاولة لاحقاً.",
   siteNotFound: "لم نجد الموقع الذي تبحثون عنه.",

@@ -40,6 +40,7 @@ export async function middleware(request: NextRequest) {
   requestHeaders.set("content-security-policy", csp);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.delete(SA_BASE_HEADER); // only middleware may set it
+  requestHeaders.delete("x-public-site");
 
   const path = request.nextUrl.pathname;
 
@@ -58,6 +59,8 @@ export async function middleware(request: NextRequest) {
   const isManagement = isSuperAdmin || path === "/admin" || path.startsWith("/admin/");
   // lets the server build console links without the address being stored anywhere
   if (saSecret) requestHeaders.set(SA_BASE_HEADER, saSecret);
+  // public pages get <html lang> in the visitor's language; management pages stay English
+  if (!isManagement) requestHeaders.set("x-public-site", "1");
 
   const next = () => {
     const res = isSuperAdmin

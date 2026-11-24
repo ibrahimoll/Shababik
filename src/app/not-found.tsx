@@ -3,7 +3,7 @@ import "./site.css";
 
 export default function NotFound() {
   return (
-    <div className="site unavailable">
+    <div className="site unavailable" lang="en" dir="ltr">
       <div className="unavailable-card">
         <div className="window-mini" aria-hidden="true" />
         <h1>Page not found</h1>
