@@ -58,6 +58,7 @@ interface Dict {
   filterAria: string;
   collectionEmpty: string;
   categoryMissing: string;
+  search: { label: string; placeholder: string; button: string; clear: string; results: (n: number, q: string) => string; none: (q: string) => string };
   heroAlt: string;
   askUs: string;
   siteUnavailable: string;
@@ -148,6 +149,14 @@ const en: Dict = {
   filterAria: "Filter by category",
   collectionEmpty: "New pieces for this collection are coming soon.",
   categoryMissing: "We couldn’t find that collection, so here are all our products.",
+  search: {
+    label: "Search products",
+    placeholder: "Search products…",
+    button: "Search",
+    clear: "Clear search",
+    results: (n, q) => `${n} ${n === 1 ? "result" : "results"} for “${q}”`,
+    none: (q) => `No products match “${q}”. Try another word, or ask us on WhatsApp.`,
+  },
   heroAlt: "Shababik Nagham: a crafter at a blue-shuttered window with resin, yarn and craft supplies",
   askUs: "Ask us on WhatsApp",
   siteUnavailable: "This website is temporarily unavailable. Please check back soon.",
@@ -278,6 +287,14 @@ const ar: Dict = {
   filterAria: "تصفية حسب المجموعة",
   collectionEmpty: "قطع جديدة لهذه المجموعة قريباً.",
   categoryMissing: "لم نجد هذه المجموعة، إليك كل منتجاتنا.",
+  search: {
+    label: "ابحث في المنتجات",
+    placeholder: "ابحث عن منتج…",
+    button: "بحث",
+    clear: "مسح البحث",
+    results: (n, q) => `${n} ${n === 1 ? "نتيجة" : "نتائج"} لـ «${q}»`,
+    none: (q) => `لا توجد منتجات تطابق «${q}». جرّب كلمة أخرى أو اسألنا عبر واتساب.`,
+  },
   heroAlt: "شبابيك نغم: حرفية عند نافذة بشبابيك زرقاء مع الريزن والصوف ومستلزمات الحِرف",
   askUs: "اسألونا على واتساب",
   siteUnavailable: "هذا الموقع غير متاح مؤقتاً. يرجى المحاولة لاحقاً.",

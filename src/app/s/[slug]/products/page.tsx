@@ -6,7 +6,7 @@ import { getLocale } from "@/lib/locale";
 
 export const dynamic = "force-dynamic";
 
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ category?: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ category?: string; q?: string }> };
 
 export async function generateMetadata({ params }: Props) {
   const meta = siteMetadata(await getBusinessBySlug((await params).slug), await getLocale(), "/products");
@@ -19,6 +19,6 @@ export default async function PreviewProducts({ params, searchParams }: Props) {
   const business = await getBusinessBySlug(slug);
   if (!business || business.is_suspended) return <Unavailable business={business} locale={locale} />;
   const { categories, products } = await getCatalog(business.id);
-  const { category } = await searchParams;
-  return <Catalog business={business} categories={categories} products={products} home={`/s/${slug}`} activeSlug={category} locale={locale} />;
+  const { category, q } = await searchParams;
+  return <Catalog business={business} categories={categories} products={products} home={`/s/${slug}`} activeSlug={category} query={typeof q === "string" ? q : ""} locale={locale} />;
 }

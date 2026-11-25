@@ -10,11 +10,11 @@ export async function generateMetadata() {
   return siteMetadata(await getBusinessForRequest(), await getLocale(), "/products");
 }
 
-export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ category?: string; q?: string }> }) {
   const locale = await getLocale();
   const business = await getBusinessForRequest();
   if (!business || business.is_suspended) return <Unavailable business={business} locale={locale} />;
   const { categories, products } = await getCatalog(business.id);
-  const { category } = await searchParams;
-  return <Catalog business={business} categories={categories} products={products} home="/" activeSlug={category} locale={locale} />;
+  const { category, q } = await searchParams;
+  return <Catalog business={business} categories={categories} products={products} home="/" activeSlug={category} query={typeof q === "string" ? q : ""} locale={locale} />;
 }
