@@ -66,6 +66,10 @@ interface Dict {
   notFoundTitle: string;
   visitInstagram: string;
   homeAria: (n: string) => string;
+  list: {
+    add: string; added: string; title: string; send: string; clear: string;
+    items: (n: number) => string; remove: (p: string) => string; message: (b: string, lines: string[]) => string;
+  };
   wa: { general: (b: string) => string; product: (b: string, p: string) => string; custom: (b: string) => string };
   footer: {
     tagline: string;
@@ -165,6 +169,16 @@ const en: Dict = {
   notFoundTitle: "Website not found",
   visitInstagram: "Visit us on Instagram",
   homeAria: (n: string) => `${n} — home`,
+  list: {
+    add: "Add to list",
+    added: "In your list",
+    title: "My list",
+    send: "Send list",
+    clear: "Clear list",
+    items: (n) => (n === 1 ? "item" : "items"),
+    remove: (p) => `Remove ${p} from list`,
+    message: (b, lines) => `Hello ${b}, I would like to order these products:\n${lines.join("\n")}\nCan you confirm availability and the total price?`,
+  },
   wa: {
     general: (b: string) => `Hello ${b}, I saw your website and I would like to ask about your products.`,
     product: (b: string, p: string) => `Hello ${b}, I'm interested in the ${p}. Can you give me more information?`,
@@ -304,6 +318,16 @@ const ar: Dict = {
   notFoundTitle: "الموقع غير موجود",
   visitInstagram: "زورونا على إنستغرام",
   homeAria: (n) => `${n} — الصفحة الرئيسية`,
+  list: {
+    add: "أضف إلى القائمة",
+    added: "في قائمتك",
+    title: "قائمتي",
+    send: "أرسل القائمة",
+    clear: "امسح القائمة",
+    items: (n) => (n === 1 ? "منتج" : "منتجات"),
+    remove: (p) => `احذف ${p} من القائمة`,
+    message: (b, lines) => `مرحباً ${b}، أود طلب هذه المنتجات:\n${lines.join("\n")}\nهل يمكنكم تأكيد التوفر والسعر الإجمالي؟`,
+  },
   wa: {
     general: (b) => `مرحباً ${b}، شاهدت موقعكم وأودّ الاستفسار عن منتجاتكم.`,
     product: (b, p) => `مرحباً ${b}، أنا مهتم/ة بـ ${p}. هل يمكنكم إعطائي المزيد من المعلومات؟`,

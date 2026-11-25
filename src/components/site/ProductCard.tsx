@@ -1,5 +1,6 @@
 import { Icon } from "../Icon";
 import { ProductImage } from "./ProductImage";
+import { AddToList } from "./OrderList";
 import { dict, greetingName, type Locale } from "@/lib/i18n";
 import { shortName, waLink } from "@/lib/whatsapp";
 import { formatPrice, parseOptions } from "@/lib/utils";
@@ -73,10 +74,12 @@ export function ProductCard({
           {unavailable && <span className="unavail-note">{t.notAvailable}</span>}
         </div>
         {waHref && (
-          <a className="btn btn-wa card-wa" href={waHref} target="_blank" rel="noopener noreferrer">
-            <Icon name="whatsapp" size={17} /> {t.askWhatsApp}
-            <span className="sr-only"> — {product.name}</span>
-          </a>
+          <div className="card-actions">
+            <AddToList id={product.id} name={product.name} price={product.ask_for_price ? "" : pricesInTags ? "" : priceLabel} locale={locale} />
+            <a className="btn btn-wa card-wa" href={waHref} target="_blank" rel="noopener noreferrer" aria-label={t.askAboutAria(product.name)} title={t.askWhatsApp}>
+              <Icon name="whatsapp" size={19} />
+            </a>
+          </div>
         )}
       </div>
     </article>

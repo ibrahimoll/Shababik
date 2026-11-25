@@ -6,6 +6,7 @@ import { ProductCard } from "./ProductCard";
 import { ProductImage } from "./ProductImage";
 import { SearchBox } from "./SearchBox";
 import { FloatingWhatsApp, SiteFooter, SiteHeader } from "./SiteChrome";
+import { ListBar } from "./OrderList";
 import { dict, greetingName, localizeBusiness, localizeProducts, type Locale } from "@/lib/i18n";
 import { showcase } from "@/lib/site";
 import { shortName, waLink } from "@/lib/whatsapp";
@@ -283,6 +284,7 @@ export function Storefront({
 
       <SiteFooter business={business} home={home} locale={locale} collections={collections} />
       <FloatingWhatsApp business={business} locale={locale} />
+      {business.whatsapp_number && <ListBar locale={locale} whatsapp={business.whatsapp_number} greet={greet} />}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Icon } from "../Icon";
 import { ProductCard } from "./ProductCard";
 import { SearchBox } from "./SearchBox";
 import { FloatingWhatsApp, SiteFooter, SiteHeader } from "./SiteChrome";
+import { ListBar } from "./OrderList";
 import { dict, greetingName, localizeCategories, localizeProducts, type Locale } from "@/lib/i18n";
 import { shortName, waLink } from "@/lib/whatsapp";
 import { matchesSearch } from "@/lib/search";
@@ -101,6 +102,7 @@ export function Catalog({
       </main>
       <SiteFooter business={business} home={home} locale={locale} collections={visibleCats} />
       <FloatingWhatsApp business={business} locale={locale} />
+      {business.whatsapp_number && <ListBar locale={locale} whatsapp={business.whatsapp_number} greet={greet} />}
     </div>
   );
 }
