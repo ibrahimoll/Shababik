@@ -194,8 +194,9 @@ button.chip { font: inherit; font-size: 14px; color: inherit; cursor: pointer; }
 }
 .search-box-go:hover { background: var(--ink); transform: scale(1.06); }
 .search-box-go:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.hero-copy { min-width: 0; } /* lets the search bar shrink on 320px phones */
-.hero-search { margin-top: 28px; }
+.home-search .search-box { max-width: 640px; margin-inline: auto; }
+.home-search .search-hints { justify-content: center; }
+.home-search + .section { padding-top: 44px; }
 .catalog-search { margin-top: 22px; }
 .search-hints { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 13.5px; color: var(--muted); }
 .search-hints a {
