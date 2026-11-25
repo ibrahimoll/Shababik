@@ -3,13 +3,14 @@ import { InfoPage } from "@/components/site/InfoPage";
 import { Unavailable } from "@/components/site/Unavailable";
 import { dict } from "@/lib/i18n";
 import { getLocale } from "@/lib/locale";
+import { siteMetadata } from "@/lib/seo";
 import { getBusinessForRequest, getCatalog } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [business, locale] = await Promise.all([getBusinessForRequest(), getLocale()]);
-  return { title: `${dict(locale).info.title} | ${business?.name ?? ""}` };
+  return { ...siteMetadata(business, locale, "/info"), title: `${dict(locale).info.title} | ${business?.name ?? ""}` };
 }
 
 export default async function Info() {
