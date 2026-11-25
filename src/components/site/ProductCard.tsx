@@ -1,5 +1,7 @@
+import { Icon } from "../Icon";
 import { ProductImage } from "./ProductImage";
-import { dict, type Locale } from "@/lib/i18n";
+import { dict, greetingName, type Locale } from "@/lib/i18n";
+import { shortName, waLink } from "@/lib/whatsapp";
 import { formatPrice, parseOptions } from "@/lib/utils";
 import type { Product, PublicBusiness } from "@/lib/types";
 
@@ -29,6 +31,12 @@ export function ProductCard({
     : variesInPrice
       ? t.from(formatPrice(Math.min(...priced), false))
       : formatPrice(priced[0] ?? product.price, false, t.askForPrice);
+  // message names the product and links back to it, so customers don't need screenshots
+  const site = business.domain ? `https://${business.domain}` : process.env.NEXT_PUBLIC_SITE_URL;
+  const link = site ? `\n${site}/products?q=${encodeURIComponent(product.name)}` : "";
+  const waHref = business.whatsapp_number && !unavailable
+    ? waLink(business.whatsapp_number, t.wa.product(greetingName(business, locale, shortName(business.name)), product.name) + link)
+    : null;
   return (
     <article className={`product-card${unavailable ? " is-unavailable" : ""}`}>
       <div className="product-photo">
@@ -64,6 +72,12 @@ export function ProductCard({
           )}
           {unavailable && <span className="unavail-note">{t.notAvailable}</span>}
         </div>
+        {waHref && (
+          <a className="btn btn-wa card-wa" href={waHref} target="_blank" rel="noopener noreferrer">
+            <Icon name="whatsapp" size={17} /> {t.askWhatsApp}
+            <span className="sr-only"> — {product.name}</span>
+          </a>
+        )}
       </div>
     </article>
   );

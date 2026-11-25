@@ -153,6 +153,9 @@
 .product-desc { font-size: 14.5px; color: var(--muted); margin: 0 0 16px; }
 .product-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--line); }
 .price { font-weight: 700; font-size: 16px; }
+.btn-wa { background: var(--wa); color: #fff; }
+.btn-wa:hover { background: #1ebe5b; }
+.site .card-wa { margin-top: 14px; width: 100%; min-height: 44px; font-size: 14.5px; padding: 0 14px; }
 .price-ask { font-weight: 600; font-size: 14px; color: var(--muted); }
 .wa-link {
   display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 16px;
