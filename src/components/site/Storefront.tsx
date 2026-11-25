@@ -4,6 +4,7 @@ import { Icon } from "../Icon";
 import { FeaturedFilter } from "./FeaturedFilter";
 import { ProductCard } from "./ProductCard";
 import { ProductImage } from "./ProductImage";
+import { SearchBox } from "./SearchBox";
 import { FloatingWhatsApp, SiteFooter, SiteHeader } from "./SiteChrome";
 import { dict, greetingName, localizeBusiness, localizeProducts, type Locale } from "@/lib/i18n";
 import { showcase } from "@/lib/site";
@@ -71,6 +72,15 @@ export function Storefront({
             <p className="kicker">{t.handmadeIn(place)}</p>
             <h1>{business.hero_title || t.heroTitle}</h1>
             <p className="hero-desc">{business.hero_description || t.heroDesc}</p>
+            <SearchBox action={productsHref} label={t.search.label} placeholder={t.search.placeholder} button={t.search.button} className="hero-search" />
+            {collections.length > 0 && (
+              <p className="search-hints">
+                <span>{t.search.try}</span>
+                {collections.slice(0, 4).map((c) => (
+                  <Link key={c.id} href={`${productsHref}?category=${c.slug}`}>{catLabel(c)}</Link>
+                ))}
+              </p>
+            )}
             <div className="ctas">
               <a className="btn btn-dark" href="#products">
                 {t.viewProducts} <Icon name="arrow" size={17} className="flip-rtl" />

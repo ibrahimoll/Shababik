@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Icon } from "../Icon";
 import { ProductCard } from "./ProductCard";
+import { SearchBox } from "./SearchBox";
 import { FloatingWhatsApp, SiteFooter, SiteHeader } from "./SiteChrome";
 import { dict, greetingName, localizeCategories, localizeProducts, type Locale } from "@/lib/i18n";
 import { shortName, waLink } from "@/lib/whatsapp";
@@ -50,12 +51,7 @@ export function Catalog({
         <p className="kicker">{t.shopKicker}</p>
         <h1 className="page-title">{active ? active.name : t.allProducts}</h1>
 
-        <form role="search" action={productsHref} className="catalog-search">
-          {active && <input type="hidden" name="category" value={active.slug} />}
-          <label htmlFor="q" className="sr-only">{t.search.label}</label>
-          <input id="q" name="q" type="search" defaultValue={q} placeholder={t.search.placeholder} maxLength={80} autoComplete="off" enterKeyHint="search" />
-          <button type="submit" className="btn btn-dark">{t.search.button}</button>
-        </form>
+        <SearchBox action={productsHref} label={t.search.label} placeholder={t.search.placeholder} button={t.search.button} defaultValue={q} category={active?.slug} className="catalog-search" />
 
         <nav className="chips" aria-label={t.filterAria}>
           <Link href={productsHref} className="chip" aria-current={!active ? "page" : undefined}>{t.all}</Link>

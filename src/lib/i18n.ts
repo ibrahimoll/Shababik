@@ -58,7 +58,7 @@ interface Dict {
   filterAria: string;
   collectionEmpty: string;
   categoryMissing: string;
-  search: { label: string; placeholder: string; button: string; clear: string; results: (n: number, q: string) => string; none: (q: string) => string };
+  search: { label: string; placeholder: string; try: string; button: string; clear: string; results: (n: number, q: string) => string; none: (q: string) => string };
   heroAlt: string;
   askUs: string;
   siteUnavailable: string;
@@ -152,6 +152,7 @@ const en: Dict = {
   search: {
     label: "Search products",
     placeholder: "Search products…",
+    try: "Try:",
     button: "Search",
     clear: "Clear search",
     results: (n, q) => `${n} ${n === 1 ? "result" : "results"} for “${q}”`,
@@ -290,6 +291,7 @@ const ar: Dict = {
   search: {
     label: "ابحث في المنتجات",
     placeholder: "ابحث عن منتج…",
+    try: "جرّب:",
     button: "بحث",
     clear: "مسح البحث",
     results: (n, q) => `${n} ${n === 1 ? "نتيجة" : "نتائج"} لـ «${q}»`,
