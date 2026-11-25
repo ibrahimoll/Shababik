@@ -60,21 +60,73 @@ function subscribe(l: () => void) {
 
 const useList = () => useSyncExternalStore(subscribe, read, () => EMPTY);
 
-/** Toggle button on a product card. */
-export function AddToList({ id, name, price, locale }: Item & { locale: Locale }) {
-  const t = dict(locale).list;
+/**
+ * Card controls: size/option picker (when the product has options), "Add to list",
+ * and a round WhatsApp button for asking about this one product (with the chosen option).
+ */
+export function CardActions({
+  id,
+  name,
+  price,
+  options,
+  whatsapp,
+  greet,
+  link,
+  locale,
+}: {
+  id: string;
+  name: string;
+  price: string;
+  options: { label: string; price: string }[];
+  whatsapp: string;
+  greet: string;
+  link: string;
+  locale: Locale;
+}) {
+  const d = dict(locale);
+  const t = d.list;
   const items = useList();
-  const inList = items.some((i) => i.id === id);
+  const [choice, setChoice] = useState<number | null>(null);
+  const [needChoice, setNeedChoice] = useState(false);
+  const opt = choice === null ? null : options[choice];
+  const key = opt ? `${id}::${opt.label}` : id;
+  const fullName = opt ? `${name} (${opt.label})` : name;
+  const inList = items.some((i) => i.id === key);
+
+  function toggle() {
+    if (options.length && !opt) return setNeedChoice(true);
+    write(inList ? read().filter((i) => i.id !== key) : [...read(), { id: key, name: fullName, price: opt?.price || price }].slice(-MAX));
+  }
+
   return (
-    <button
-      type="button"
-      className={`btn card-list${inList ? " is-added" : ""}`}
-      aria-pressed={inList}
-      onClick={() => write(inList ? read().filter((i) => i.id !== id) : [...read(), { id, name, price }].slice(-MAX))}
-    >
-      <Icon name={inList ? "check" : "plus"} size={17} /> {inList ? t.added : t.add}
-      <span className="sr-only"> — {name}</span>
-    </button>
+    <div className="card-actions">
+      {options.length > 0 && (
+        <fieldset className="card-options">
+          <legend className="sr-only">{t.choose}</legend>
+          {options.map((o, i) => (
+            <label key={o.label} className="opt">
+              <input type="radio" name={`opt-${id}`} checked={choice === i} onChange={() => { setChoice(i); setNeedChoice(false); }} />
+              <span>{o.label}{o.price && <b>{o.price}</b>}</span>
+            </label>
+          ))}
+        </fieldset>
+      )}
+      {needChoice && <p className="opt-hint" role="alert">{t.choose}</p>}
+      <button type="button" className={`btn card-list${inList ? " is-added" : ""}`} aria-pressed={inList} onClick={toggle}>
+        <Icon name={inList ? "check" : "plus"} size={17} /> {inList ? t.added : t.add}
+        <span className="sr-only"> — {fullName}</span>
+      </button>
+      <a
+        className="card-wa"
+        href={waLink(whatsapp, d.wa.product(greet, fullName) + link)}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={d.askAboutAria(fullName)}
+        title={d.askWhatsApp}
+      >
+        <Icon name="whatsapp" size={20} />
+      </a>
+    </div>
   );
 }
 

@@ -1,8 +1,7 @@
-import { Icon } from "../Icon";
 import { ProductImage } from "./ProductImage";
-import { AddToList } from "./OrderList";
+import { CardActions } from "./OrderList";
 import { dict, greetingName, type Locale } from "@/lib/i18n";
-import { shortName, waLink } from "@/lib/whatsapp";
+import { shortName } from "@/lib/whatsapp";
 import { formatPrice, parseOptions } from "@/lib/utils";
 import type { Product, PublicBusiness } from "@/lib/types";
 
@@ -35,9 +34,7 @@ export function ProductCard({
   // message names the product and links back to it, so customers don't need screenshots
   const site = business.domain ? `https://${business.domain}` : process.env.NEXT_PUBLIC_SITE_URL;
   const link = site ? `\n${site}/products?q=${encodeURIComponent(product.name)}` : "";
-  const waHref = business.whatsapp_number && !unavailable
-    ? waLink(business.whatsapp_number, t.wa.product(greetingName(business, locale, shortName(business.name)), product.name) + link)
-    : null;
+  const canOrder = !!business.whatsapp_number && !unavailable;
   return (
     <article className={`product-card${unavailable ? " is-unavailable" : ""}`}>
       <div className="product-photo">
@@ -48,7 +45,7 @@ export function ProductCard({
         {categoryName && <p className="product-cat">{categoryName}</p>}
         <h3>{product.name}</h3>
         {product.short_description && <p className="product-desc">{product.short_description}</p>}
-        {options.length > 0 &&
+        {options.length > 0 && !canOrder &&
           (priced.length ? (
             <ul className="options">
               {options.map((o) => (
@@ -73,13 +70,17 @@ export function ProductCard({
           )}
           {unavailable && <span className="unavail-note">{t.notAvailable}</span>}
         </div>
-        {waHref && (
-          <div className="card-actions">
-            <AddToList id={product.id} name={product.name} price={product.ask_for_price ? "" : pricesInTags ? "" : priceLabel} locale={locale} />
-            <a className="btn btn-wa card-wa" href={waHref} target="_blank" rel="noopener noreferrer" aria-label={t.askAboutAria(product.name)} title={t.askWhatsApp}>
-              <Icon name="whatsapp" size={19} />
-            </a>
-          </div>
+        {canOrder && (
+          <CardActions
+            id={product.id}
+            name={product.name}
+            price={product.ask_for_price || pricesInTags || variesInPrice ? "" : priceLabel}
+            options={options.map((o) => ({ label: o.label, price: o.price !== null && !product.ask_for_price ? formatPrice(o.price, false) : "" }))}
+            whatsapp={business.whatsapp_number!}
+            greet={greetingName(business, locale, shortName(business.name))}
+            link={link}
+            locale={locale}
+          />
         )}
       </div>
     </article>

@@ -67,7 +67,7 @@ interface Dict {
   visitInstagram: string;
   homeAria: (n: string) => string;
   list: {
-    add: string; added: string; title: string; send: string; clear: string;
+    add: string; added: string; choose: string; title: string; send: string; clear: string;
     items: (n: number) => string; remove: (p: string) => string; message: (b: string, lines: string[]) => string;
   };
   wa: { general: (b: string) => string; product: (b: string, p: string) => string; custom: (b: string) => string };
@@ -172,6 +172,7 @@ const en: Dict = {
   list: {
     add: "Add to list",
     added: "In your list",
+    choose: "Choose an option first",
     title: "My list",
     send: "Send list",
     clear: "Clear list",
@@ -321,6 +322,7 @@ const ar: Dict = {
   list: {
     add: "أضف إلى القائمة",
     added: "في قائمتك",
+    choose: "اختر خياراً أولاً",
     title: "قائمتي",
     send: "أرسل القائمة",
     clear: "امسح القائمة",
