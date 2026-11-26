@@ -263,7 +263,7 @@ button.chip { font: inherit; font-size: 14px; color: inherit; cursor: pointer; }
   background: var(--aqua-soft); color: var(--accent-deep); text-decoration: none; font-weight: 500; transition: background .2s;
 }
 .search-hints a:hover { background: var(--sand); }
-.catalog-note a { color: var(--accent-deep); font-weight: 600; }
+.catalog-note a { color: var(--accent-deep); font-weight: 600; display: inline-flex; align-items: center; min-height: 40px; }
 /* Featured Creations: category buttons + one sideways row of products (2 / 3 / 4 visible as space allows) */
 .featured-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 22px; }
 .featured-chips { margin: 0; min-width: 0; }

@@ -52,11 +52,18 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
         <header className="topbar-mobile">
           <span className="side-title">{business.name}</span>
-          <form action={adminLogout}>
-            <button type="submit" className="pbtn pbtn-ghost pbtn-sm" aria-label="Logout">
-              <Icon name="logout" size={18} />
-            </button>
-          </form>
+          <div className="topbar-actions">
+            {!isSuperAdmin && (
+              <Link href="/admin/password" className="pbtn pbtn-ghost pbtn-sm" aria-label="Change password">
+                <Icon name="key" size={18} />
+              </Link>
+            )}
+            <form action={adminLogout}>
+              <button type="submit" className="pbtn pbtn-ghost pbtn-sm" aria-label="Logout">
+                <Icon name="logout" size={18} />
+              </button>
+            </form>
+          </div>
         </header>
 
         <main className="content">{children}</main>
