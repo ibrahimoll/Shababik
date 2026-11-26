@@ -7,10 +7,11 @@ export function siteMetadata(b: PublicBusiness | null, locale: Locale = "en", pa
   const place = !b.location ? "Lebanon" : /lebanon/i.test(b.location) ? b.location : `${b.location}, Lebanon`;
   const ar = locale === "ar";
   const arName = b.arabic_name || b.name;
-  const title = ar ? `${arName} | هدايا وأشغال يدوية في لبنان` : `${b.name} | Handmade Gifts & Crafts Lebanon`;
+  // words people actually search for: the shop sells craft supplies & materials
+  const title = ar ? `${arName} | مستلزمات ومواد الأشغال اليدوية في لبنان` : `${b.name} | Craft Supplies & Handmade Materials Lebanon`;
   const description = ar
-    ? `اكتشفوا هدايا وإكسسوارات وشموعاً وصابوناً ورزيناً وجفصيناً وقطعاً مخصّصة مصنوعة يدوياً من ${arName} في ${b.location_ar || "لبنان"}.`
-    : `Discover handmade gifts, accessories, candles, pottery, wood, resin and personalized creations by ${b.name} in ${place}.`;
+    ? `مستلزمات ومواد لكل أنواع الأشغال اليدوية من ${arName} في ${b.location_ar || "لبنان"}: ريزن، صوف وخيوط، خرز، مرايا، شموع وصابون وأدوات الحِرف. اطلبوا بسهولة عبر واتساب.`
+    : `Supplies & materials for all kinds of crafts by ${b.name} in ${place}: resin, wool & yarn, beads, mirrors, candle and soap making and handmade tools. Order easily on WhatsApp.`;
   const canonical = b.domain ? `https://${b.domain}${path === "/" ? "" : path}` : undefined;
   // link preview (WhatsApp, Facebook…): absolute on the shop's own domain, else relative to metadataBase
   const image = { url: b.domain ? `https://${b.domain}/og.jpg` : "/og.jpg", width: 1200, height: 630, alt: b.name };
