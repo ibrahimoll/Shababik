@@ -48,16 +48,17 @@ export const getCatalog = cache(async (businessId: string) => {
 
 /**
  * Order of the homepage "All" view, as set on Admin → Arrange (products arrive sorted by their
- * category position, then newest). Arranged products (home_order) come first; the rest follow,
- * taking turns across categories: each category's #1, then each one's #2, and so on.
+ * category position, then newest). New, not-yet-arranged products come first (so they show on the
+ * homepage right after being added), then the arranged ones (home_order). The new ones take
+ * turns across categories: each category's #1, then each one's #2, and so on.
  */
 export function homeOrder(products: Product[], categories: Category[]): Product[] {
   const lists = categories.map((c) => products.filter((p) => p.is_available && p.category_id === c.id));
   const turns: Product[] = [];
   const longest = Math.max(0, ...lists.map((l) => l.length));
   for (let round = 0; round < longest; round++) for (const l of lists) if (l[round]) turns.push(l[round]);
-  // stable sort: arranged first by position, unarranged keep their turn order
-  return turns.sort((a, b) => (a.home_order ?? Infinity) - (b.home_order ?? Infinity));
+  // stable sort: new (unarranged) first in their turn order, then arranged by position
+  return turns.sort((a, b) => (a.home_order ?? 0) - (b.home_order ?? 0)); // arranged positions start at 1
 }
 
 /**
