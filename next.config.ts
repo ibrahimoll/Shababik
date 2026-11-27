@@ -33,6 +33,21 @@ const nextConfig: NextConfig = {
         }]
       : [],
   },
+  // Cloudflare's static file server redirects "(" ↔ "%28" in a loop, so client files under route
+  // groups like app/(site)/ never load. Name them without brackets.
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      for (const key of ["filename", "chunkFilename"] as const) {
+        const orig = config.output[key];
+        config.output[key] = (pathData: { chunk?: { name?: string } }, info: unknown) => {
+          const f: string = typeof orig === "function" ? orig(pathData, info) : orig;
+          const name = pathData.chunk?.name;
+          return name && /[()]/.test(name) ? f.replace("[name]", name.replace(/[()]/g, "_")) : f;
+        };
+      }
+    }
+    return config;
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
