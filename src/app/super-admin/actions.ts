@@ -68,7 +68,7 @@ export async function superAdminLogin(_: FormState, fd: FormData): Promise<FormS
     error || !data.user || !profile || profile.role !== "super_admin" || !profile.is_active ||
     !allowed || email.toLowerCase() !== allowed
   ) {
-    if (data.user) await supabase.auth.signOut();
+    if (data.user) await supabase.auth.signOut({ scope: "local" });
     await recordAttempt("password", email, ip, false);
     await audit({ action: "login.failed", actor: { email }, details: { area: "super-admin" } });
     await failureDelay();
@@ -82,7 +82,7 @@ export async function superAdminLogin(_: FormState, fd: FormData): Promise<FormS
 
 export async function superAdminLogout() {
   const supabase = await createClient();
-  await supabase.auth.signOut();
+  await supabase.auth.signOut({ scope: "local" });
   (await cookies()).delete(SA_BUSINESS_COOKIE);
   redirect(await saPath("/login"));
 }

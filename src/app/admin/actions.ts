@@ -52,7 +52,7 @@ export async function adminLogin(_: FormState, fd: FormData): Promise<FormState>
   if (profile.role === "super_admin") {
     // only the one configured Super Admin email gets in — and is sent to the hidden console
     if (email.toLowerCase() !== superAdminEmail()) {
-      await supabase.auth.signOut();
+      await supabase.auth.signOut({ scope: "local" });
       await failureDelay();
       return { error: "Invalid login details." };
     }
@@ -77,7 +77,8 @@ export async function adminLogin(_: FormState, fd: FormData): Promise<FormState>
 
 export async function adminLogout() {
   const supabase = await createClient();
-  await supabase.auth.signOut();
+  // only this device: a global sign-out kicked out everyone sharing the account mid-work
+  await supabase.auth.signOut({ scope: "local" });
   redirect("/admin/login");
 }
 
