@@ -1,13 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "shababik",
+  "name": "shababik-web",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
   // next/image resizing through Cloudflare Images
   "images": { "binding": "IMAGES" },
-  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "shababik" }],
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "shababik-web" }],
   "observability": { "enabled": true },
   // non-secret settings; SUPABASE_SERVICE_ROLE_KEY is set as a secret in the Cloudflare dashboard
   "vars": {
