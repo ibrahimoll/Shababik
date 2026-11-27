@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shababik",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  // next/image resizing through Cloudflare Images
+  "images": { "binding": "IMAGES" },
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "shababik" }],
+  "observability": { "enabled": true },
+  // non-secret settings; SUPABASE_SERVICE_ROLE_KEY is set as a secret in the Cloudflare dashboard
+  "vars": {
+    "DEFAULT_BUSINESS_SLUG": "shababik",
+    "SUPER_ADMIN_EMAIL": "ibrahimolleik3@gmail.com",
+    // SHA-256 of the secret console address (the address itself is never stored)
+    "SUPER_ADMIN_PATH_HASH": "86e5f68c79526752b091c00ac0a80885eaa0c94e16c5084c37be1e1df963d575"
+  }
+}
